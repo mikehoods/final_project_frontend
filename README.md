@@ -48,8 +48,14 @@ User:
 ## Repo links
 
 https://github.com/mikehoods/final_project_frontend
+
+
 https://github.com/mikehoods/final_project_backend
 
 ## Desktop Figma
 
 ![Desktop Figma](/public/images/Desktop_Figma.png)
+
+## Mobile Design
+
+So far, I just have a sloppy hand drawn sketch for this.
