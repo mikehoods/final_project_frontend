@@ -14,16 +14,11 @@ export default {
     name: "Home",
     data(){
         return {
-            posts: []
+            entries: []
         }
     },
     created(){
         postService.getAllPosts()
-            .then(res => {
-                this.posts = res.data
-                console.log(this.posts);
-            })
-            .catch(err => console.error(err));
     }
 }
 </script>

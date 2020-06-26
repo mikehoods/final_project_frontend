@@ -1,9 +1,14 @@
 import axios from 'axios';
 
-const apiBaseUrl = 'https://ndb99x.kpdk.execute-api.eu-west-2.amazonaws.com/dev';
+const apiBaseUrl = 'http://localhost:8000';
 
 export default class PostService{
     getAllPosts(){
-        return axios.get(`${apiBaseUrl}/posts`);
+        return axios.get(`${apiBaseUrl}/api/entry`)
+            .then(results => {
+                console.log(results.data.objects)
+                return results.data.objects
+            })
+            .catch(error => console.log(error))
     }
 }
