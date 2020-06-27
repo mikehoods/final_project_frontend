@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiBaseUrl = 'http://localhost:8000/api/entry';
+const apiBaseUrl = 'http://localhost:8000/api/entry/';
 
 export default class PostService{
     getAllPosts(){
@@ -13,8 +13,8 @@ export default class PostService{
 
     writePost(post){
         if(post.id){
-            return axios.put(`${apiBaseUrl}/post/${post.id}`, post)
-        } else return axios.post(`${apiBaseUrl}/post`, post)
+            return axios.put(`${apiBaseUrl}/${post.id}`, post)
+        } else return axios.post(`${apiBaseUrl}`, post)
     }
 
     deletePost(id){

@@ -48,6 +48,8 @@ export default {
                 .writePost(post)
                 .then(res => {
                     this.loading = false;
+                    this.entry = "";
+                    this.title = "";
                     console.log(res.data);
                 })
                 .catch(err => console.error(err));
