@@ -5,7 +5,7 @@
             <input type="text"
                 name="title"
                 v-model="title"
-                class="validate"
+                :class="[errors.title ? 'invalid' : 'validate']"
             >
             <span class="helper-text" data-error="Title must not be empty"></span>
         </div>
@@ -14,14 +14,17 @@
             <input type="text"
                 name="entry"
                 v-model="entry"
-                class="entry"
+                :class="[errors.entry ? 'invalid' : 'validate']"
             >
-            <span class="helper-text" data-error="Title must not be empty"></span>
+            <span class="helper-text" data-error="Entry must not be empty"></span>
         </div>
         <button type="submit" class="waves-effect waves-light btn">
             Add
         </button>
     </form>
+    <div class="progress" v-else-if="loading">
+        <div class="indeterminate"></div>
+    </div>
 </template>
 
 <script>
@@ -34,11 +37,16 @@ export default {
             loading: false,
             title: "",
             entry: "",
+            errors: {}
         };
     },
     methods: {
         onSubmit(){
             this.loading = true;
+            if(!this.validForm()){
+                this.loading = false;
+                return;
+            }
               const post = {
                   title: this.title,
                   entry: this.entry
@@ -53,6 +61,18 @@ export default {
                     console.log(res.data);
                 })
                 .catch(err => console.error(err));
+        },
+        validForm(){
+            this.errors = {};
+            if(this.title.trim() === ""){
+                this.errors.title = 'Title Required'
+            }
+            if(this.entry.trim() === ""){
+                this.errors.entry = 'Entry Required'
+            }
+            if(Object.keys(this.errors).length > 0){
+                return false;
+            } else return true;
         }
     }
 }
@@ -60,5 +80,8 @@ export default {
 <style scoped>
 .form {
     margin: 2rem auto;
+}
+.progress {
+    margin: 5rem auto;
 }
 </style>
