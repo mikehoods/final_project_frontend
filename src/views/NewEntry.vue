@@ -1,5 +1,5 @@
 <template>
-    <form v-if="!loading" class="form" v-on:submit.prevent="onSubmit">
+    <form v-if="!loading" class="form" v-on:submit.prevent="onSubmit" >
         <div class="input-field">
             <label for="title">Title</label>
             <input type="text"
@@ -37,7 +37,7 @@ export default {
             loading: false,
             title: "",
             entry: "",
-            errors: {}
+            errors: {},
         };
     },
     methods: {

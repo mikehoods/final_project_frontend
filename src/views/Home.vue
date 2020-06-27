@@ -20,7 +20,7 @@
             <div class="card">
                 <div class="card-content">
                     <p class="card-title">{{ post.title }}</p>
-                    <p class="timestamp">{{ post.created_at }}</p>
+                    <p class="timestamp">{{ post.created_at | formatDate }}</p>
                     <p>{{ post.entry }}</p>
                     <p>{{ post.image }}</p>
                 </div>
@@ -42,7 +42,8 @@ export default {
     data(){
         return {
             posts: [],
-            postLimit: 5
+            postLimit: 5,
+            editingPost: null
         }
     },
     methods: {
@@ -50,7 +51,7 @@ export default {
             this.posts.unshift(post);
         },
         editPost(post) {
-            console.log(post);
+            this.editingPost = post;
         },
         deletePost(id) {
             postService
@@ -75,6 +76,16 @@ export default {
             console.log(this.posts);
         })
         .catch(err => console.error(err))
+    },
+    filters: {
+        formatDate(date){
+            date = new Date(date);
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();
+
+            return `${month}/${day}/${year}`
+        }
     }
 }
 </script>
