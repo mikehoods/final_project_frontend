@@ -45,6 +45,13 @@ export default {
 </script>
 
 <style scoped>
+.card .card-content .card-title{
+    margin-bottom: 0;
+}
+.card .card-content p.timestamp{
+    color: #999;
+    margin-bottom: 1rem;
+}
 .delete-btn {
     color: red;
 }
