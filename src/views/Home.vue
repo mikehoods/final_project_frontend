@@ -2,7 +2,23 @@
     <div>
     <h3>Welcome to your diary</h3>
     <div class="row">
-
+        <div class="col s6" v-for="(post, index) in posts"
+         v-bind:item="post"
+         :index="index"
+         :key="post.id">
+            <div class="card">
+                <div class="card-content">
+                    <p class="card-title">{{ post.title }}</p>
+                    <p class="timestamp">{{ post.created_at }}</p>
+                    <p>{{ post.entry }}</p>
+                    <p>{{ post.image }}</p>
+                </div>
+                <div>
+                    <a href='#'>Edit</a>
+                    <a href='#' class="delete-btn">Delete</a>
+                </div>
+            </div>
+        </div>
     </div>
     </div>
 </template>
@@ -14,11 +30,22 @@ export default {
     name: "Home",
     data(){
         return {
-            entries: []
+            posts: []
         }
     },
     created(){
         postService.getAllPosts()
+        .then(res => {
+            this.posts = res.data.objects;
+            console.log(this.posts);
+        })
+        .catch(err => console.error(err))
     }
 }
 </script>
+
+<style scoped>
+.delete-btn {
+    color: red;
+}
+</style>
