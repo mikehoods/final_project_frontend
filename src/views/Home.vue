@@ -2,10 +2,21 @@
     <div>
     <h3>Welcome to your diary</h3>
     <div class="row">
-        <div class="col s6" v-for="(post, index) in posts"
-         v-bind:item="post"
-         :index="index"
-         :key="post.id">
+        <div class="col s3">
+            <p>Limit number of posts</p>
+            <input type="number" v-model="postLimit">
+            <button @click="setLimit()" class="waves-effect waves-light btn">
+                Set
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div 
+        class="col s6" 
+        v-for="(post, index) in posts"
+        v-bind:item="post"
+        :index="index"
+        :key="post.id">
             <div class="card">
                 <div class="card-content">
                     <p class="card-title">{{ post.title }}</p>
@@ -14,8 +25,8 @@
                     <p>{{ post.image }}</p>
                 </div>
                 <div>
-                    <a href='#'>Edit</a>
-                    <a href='#' class="delete-btn">Delete</a>
+                    <a href='#' @click='editPost(post)'>Edit</a>
+                    <a href='#' class="delete-btn" @click='deletePost(post.id)'>Delete</a>
                 </div>
             </div>
         </div>
@@ -30,7 +41,31 @@ export default {
     name: "Home",
     data(){
         return {
-            posts: []
+            posts: [],
+            postLimit: 5
+        }
+    },
+    methods: {
+        addPost(post) {
+            this.posts.unshift(post);
+        },
+        editPost(post) {
+            console.log(post);
+        },
+        deletePost(id) {
+            postService
+                //deletes post from array
+                .deletePost(id)
+                .then(() => {
+                    // filters post from FE view
+                    this.posts = this.posts.filter(p => p.id !== id);
+                })
+                .catch(err => console.error(err));
+        },
+        setLimit(){
+            postService.getPosts(this.postLimit)
+                .then(res => this.posts = res.data)
+                .catch(err => console.error(err));
         }
     },
     created(){

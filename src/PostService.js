@@ -8,7 +8,7 @@ export default class PostService{
     }
 
     getPosts(number){
-        return axios.get(`${apiBaseUrl}/${number}`)
+        return axios.get(`${apiBaseUrl}${number}`)
     }
 
     writePost(post){
@@ -18,6 +18,6 @@ export default class PostService{
     }
 
     deletePost(id){
-        return axios.delete(`${apiBaseUrl}/${id}`)
+        return axios.delete(`${apiBaseUrl}${id}`)
     }
 }
