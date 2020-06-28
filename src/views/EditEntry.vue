@@ -32,12 +32,14 @@ import PostService from '../PostService';
 const postService = new PostService();
 export default {
     name: "EditEntry",
+    params: ['posts'],
     data() {
         return {
             loading: false,
-            title: "",
-            entry: "",
+            // title: "",
+            // entry: "",
             errors: {},
+            posts: []
         };
     },
     methods: {
@@ -73,7 +75,11 @@ export default {
             if(Object.keys(this.errors).length > 0){
                 return false;
             } else return true;
-        }
+        },
+        beforeCreate(){
+        postService.getPosts(this.$route.params.id)
+        .then(response => this.posts = response.data)
+    },
     }
 }
 </script>

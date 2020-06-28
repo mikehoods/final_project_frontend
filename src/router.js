@@ -20,7 +20,7 @@ export default new Router({
             component: NewEntry
         },
         {
-            path: '/edit_entry',
+            path: '/:id/edit',
             component: EditEntry
         },
         {

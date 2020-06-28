@@ -20,14 +20,13 @@
             <div class="card">
                 <div class="card-content">
                     <p class="card-title">
-                        <router-link :to="{path: `${post.id}`, params: {post}}">{{ post.title }}</router-link></p>
-                        <!-- <router-link :to=`${post.id}`></router-link> -->
+                        <router-link :to="{path: `${post.id}`}">{{ post.title }}</router-link></p>
                     <p class="timestamp">{{ post.created_at | formatDate }}</p>
                     <p>{{ post.entry }}</p>
                     <p>{{ post.image }}</p>
                 </div>
                 <div>
-                    <router-link to="edit_entry">Edit</router-link> 
+                    <router-link :to="{path: `${post.id}/edit`, params: {post}}">Edit</router-link> 
                     <a href='#' class="delete-btn" @click='deletePost(post.id)'>Delete</a>
                 </div>
             </div>
@@ -75,7 +74,7 @@ export default {
         postService.getAllPosts()
         .then(res => {
             this.posts = res.data.objects;
-            console.log(this.posts);
+            // console.log(this.posts);
         })
         .catch(err => console.error(err))
     },
@@ -92,7 +91,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .card .card-content .card-title{
     margin-bottom: 0;
 }

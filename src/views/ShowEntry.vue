@@ -9,8 +9,8 @@
                 <p>{{ this.post.image }}</p>
             </div>
             <div>
-                <router-link to="edit_entry">Edit</router-link> 
-                <a href='/' class="delete-btn" @click='deletePost(this.post.id)'>Delete</a>
+                <router-link :to="{path: `${this.post.id}/edit`, params: {post}}">Edit</router-link> 
+                <a href='#' class="delete-btn" @click='deletePost(this.post.id)'>Delete</a>
             </div>
         </div>
     </div>
@@ -34,6 +34,14 @@ export default {
     deletePost(id) {
         postService
             .deletePost(id)
+            // .then(()=> {
+            //     console.log(id)
+            // })
+            .then(() => {
+                // filters post from FE view
+                this.post = this.post.filter(p => p.id !== id);
+            })
+            .catch(err => console.error(err));
     },
     filters: {
         formatDate(date){
