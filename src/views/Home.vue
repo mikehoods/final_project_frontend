@@ -1,14 +1,14 @@
 <template>
     <div>
-    <h3>Welcome to your diary</h3>
+    <h3>Welcome to your journal</h3>
     <div class="row">
-        <div class="col s3">
+        <!-- <div class="col s3">
             <p>Limit number of posts</p>
             <input type="number" v-model="postLimit">
             <button @click="setLimit()" class="waves-effect waves-light btn">
                 Set
             </button>
-        </div>
+        </div> -->
     </div>
     <div class="row">
         <div 
@@ -19,13 +19,15 @@
         :key="post.id">
             <div class="card">
                 <div class="card-content">
-                    <p class="card-title">{{ post.title }}</p>
+                    <p class="card-title">
+                        <router-link :to="{path: `${post.id}`, params: {post}}">{{ post.title }}</router-link></p>
+                        <!-- <router-link :to=`${post.id}`></router-link> -->
                     <p class="timestamp">{{ post.created_at | formatDate }}</p>
                     <p>{{ post.entry }}</p>
                     <p>{{ post.image }}</p>
                 </div>
                 <div>
-                    <a href='#' @click='editPost(post)'>Edit</a>
+                    <router-link to="edit_entry">Edit</router-link> 
                     <a href='#' class="delete-btn" @click='deletePost(post.id)'>Delete</a>
                 </div>
             </div>
@@ -43,7 +45,7 @@ export default {
         return {
             posts: [],
             postLimit: 5,
-            editingPost: null
+            editingPost: null,
         }
     },
     methods: {

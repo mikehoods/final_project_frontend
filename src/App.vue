@@ -1,7 +1,6 @@
 <template>
   <div>
     <Navbar/>
-    <h1>Dear Diary</h1>
     <div class="container">
       <router-view/>
     </div>

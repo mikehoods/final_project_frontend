@@ -3,6 +3,8 @@ import Router from 'vue-router';
 
 import Home from './views/Home.vue';
 import NewEntry from './views/NewEntry.vue';
+import EditEntry from './views/EditEntry.vue';
+import ShowEntry from './views/ShowEntry.vue';
 
 Vue.use(Router);
 
@@ -16,6 +18,15 @@ export default new Router({
         {
             path: '/new_entry',
             component: NewEntry
+        },
+        {
+            path: '/edit_entry',
+            component: EditEntry
+        },
+        {
+            path: '/:id',
+            component: ShowEntry,
+            name: ShowEntry,
         }
     ]
 })
