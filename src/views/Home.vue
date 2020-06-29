@@ -26,7 +26,7 @@
                     <p>{{ post.image }}</p>
                 </div>
                 <div>
-                    <router-link :to="{path: `${post.id}/edit`, props: {post}}">Edit</router-link> 
+                    <router-link :to="{path: `${post.id}/edit`}">Edit</router-link> 
                     <a href='#' class="delete-btn" @click='deletePost(post.id)'>Delete</a>
                 </div>
             </div>
@@ -74,7 +74,6 @@ export default {
         postService.getAllPosts()
         .then(res => {
             this.posts = res.data.objects;
-            // console.log(this.posts);
         })
         .catch(err => console.error(err))
     },

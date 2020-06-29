@@ -37,15 +37,21 @@ export default {
             loading: false,
             title: '',
             entry: '',
+            id: '',
             errors: {},
             posts: []
         };
     },
+    beforeCreate(){
+        postService.getPosts(parseInt(this.$route.params.id))
+        .then(response => {
+            this.posts = response.data;
+            this.title = this.posts.title;
+            this.entry = this.posts.entry;
+            this.id = this.posts.id;
+        })
+    },
     methods: {
-        beforeCreate(){
-        postService.getPosts(this.$route.params.id)
-        .then(response => this.posts = response.data)
-        },
         onSubmit(){
             this.loading = true;
             if(!this.validForm()){
