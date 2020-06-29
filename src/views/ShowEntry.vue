@@ -1,16 +1,15 @@
 <template>
     <div>
-        <h1>Show Entry</h1>
-        <div class="card">
+        <div class="card" v-bind:item="posts">
             <div class="card-content">
-                <p class="card-title">{{ this.post.title }}</p>
-                <p class="timestamp">{{ this.post.created_at | formatDate }}</p>
-                <p>{{ this.post.entry }}</p>
-                <p>{{ this.post.image }}</p>
+                <p class="card-title">{{ this.posts.title }}</p>
+                <p class="timestamp">{{ this.posts.created_at | formatDate }}</p>
+                <p>{{ this.posts.entry }}</p>
+                <p>{{ this.posts.image }}</p>
             </div>
             <div>
-                <router-link :to="{path: `${this.post.id}/edit`, params: {post}}">Edit</router-link> 
-                <a href='#' class="delete-btn" @click='deletePost(this.post.id)'>Delete</a>
+                <router-link :to="{path: `${this.posts.id}/edit`}">Edit</router-link> 
+                <a href='/' class="delete-btn" @click='deletePost(posts.id)'>Delete</a>
             </div>
         </div>
     </div>
@@ -21,27 +20,19 @@ import PostService from '../PostService';
 const postService = new PostService();
 export default {
     name: 'ShowEntry',
-    params: ['post'],
     data(){
         return {
-            post: []
+            posts: []
         }
     },
     beforeCreate(){
-        postService.getPosts(this.$route.params.id)
-        .then(response => this.post = response.data)
+            postService.getPosts(this.$route.params.id)
+            .then(response => this.posts = response.data)
     },
-    deletePost(id) {
-        postService
-            .deletePost(id)
-            // .then(()=> {
-            //     console.log(id)
-            // })
-            .then(() => {
-                // filters post from FE view
-                this.post = this.post.filter(p => p.id !== id);
-            })
-            .catch(err => console.error(err));
+    methods: {
+        deletePost(id) {
+            postService.deletePost(id)
+        },
     },
     filters: {
         formatDate(date){

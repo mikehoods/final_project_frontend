@@ -26,7 +26,7 @@
                     <p>{{ post.image }}</p>
                 </div>
                 <div>
-                    <router-link :to="{path: `${post.id}/edit`, params: {post}}">Edit</router-link> 
+                    <router-link :to="{path: `${post.id}/edit`, props: {post}}">Edit</router-link> 
                     <a href='#' class="delete-btn" @click='deletePost(post.id)'>Delete</a>
                 </div>
             </div>
@@ -87,11 +87,21 @@ export default {
 
             return `${month}/${day}/${year}`
         }
-    }
+    },
+    watch: {
+            editingPost(post){
+                this.title = post.title;
+                this.entry = post.entry;
+            }
+        }
 }
 </script>
 
 <style>
+.card {
+    border-radius: 12px;
+    padding: .4rem;
+}
 .card .card-content .card-title{
     margin-bottom: 0;
 }

@@ -12,3 +12,9 @@
     </div>
   </nav>
 </template>
+
+<style scoped>
+.nav-wrapper {
+  background-color: teal;
+}
+</style>

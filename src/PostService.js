@@ -13,7 +13,7 @@ export default class PostService{
 
     writePost(post){
         if(post.id){
-            return axios.put(`${apiBaseUrl}/${post.id}`, post)
+            return axios.put(`${apiBaseUrl}${post.id}`, post)
         } else return axios.post(`${apiBaseUrl}`, post)
     }
 
