@@ -60,7 +60,8 @@ export default {
             }
               const post = {
                   title: this.title,
-                  entry: this.entry
+                  entry: this.entry,
+                  id: this.id
               };
 
               postService
