@@ -35,9 +35,9 @@ export default {
     data() {
         return {
             loading: false,
-            title: '',
-            entry: '',
-            id: '',
+            title: "",
+            entry: "",
+            id: "",
             errors: {},
             posts: []
         };
