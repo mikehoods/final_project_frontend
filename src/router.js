@@ -5,6 +5,7 @@ import Home from './views/Home.vue';
 import NewEntry from './views/NewEntry.vue';
 import EditEntry from './views/EditEntry.vue';
 import ShowEntry from './views/ShowEntry.vue';
+import Login from './views/Login.vue';
 
 Vue.use(Router);
 
@@ -14,6 +15,10 @@ export default new Router({
         {
             path: '/',
             component: Home
+        },
+        {
+            path: '/login',
+            component: Login
         },
         {
             path: '/new_entry',
