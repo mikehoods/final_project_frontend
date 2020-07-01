@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-const apiBaseUrl = 'http://localhost:8000/users/v1/';
+const apiBaseUrl = 'http://localhost:8000/api/v1/user/';
 
 export default class UserService{
     getAllUsers(){
         return axios.get(`${apiBaseUrl}`)
     }
 
-    getUsers(number){
+    getUser(number){
         return axios.get(`${apiBaseUrl}${number}`)
     }
 
