@@ -10,13 +10,13 @@
             <span class="helper-text" data-error="Title must not be empty"></span>
         </div>
         <div class="input-field">
-            <label for="entry">Entry</label>
+            <label for="body">Body</label>
             <input type="text"
-                name="entry"
-                v-model="entry"
-                :class="[errors.entry ? 'invalid' : 'validate']"
+                name="body"
+                v-model="body"
+                :class="[errors.body ? 'invalid' : 'validate']"
             >
-            <span class="helper-text" data-error="Entry must not be empty"></span>
+            <span class="helper-text" data-error="Body must not be empty"></span>
         </div>
         <div class="file-field input-field">
       <div class="btn">
@@ -45,7 +45,8 @@ export default {
         return {
             loading: false,
             title: "",
-            entry: "",
+            body: "",
+            username: "",
             errors: {},
         };
     },
@@ -58,14 +59,14 @@ export default {
             }
               const post = {
                   title: this.title,
-                  entry: this.entry
+                  body: this.body
               };
 
               postService
                 .writePost(post)
                 .then(res => {
                     this.loading = false;
-                    this.entry = "";
+                    this.body = "";
                     this.title = "";
                     this.$emit('postCreated', res.data);
                 })
@@ -76,8 +77,8 @@ export default {
             if(this.title.trim() === ""){
                 this.errors.title = 'Title Required'
             }
-            if(this.entry.trim() === ""){
-                this.errors.entry = 'Entry Required'
+            if(this.body.trim() === ""){
+                this.errors.body = 'Entry Required'
             }
             if(Object.keys(this.errors).length > 0){
                 return false;

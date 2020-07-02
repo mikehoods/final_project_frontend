@@ -1,8 +1,11 @@
 import axios from 'axios';
 
-const apiBaseUrl = 'http://localhost:8000/api/v1/user/';
+const apiBaseUrl = 'http://localhost:3000/users/';
 
 export default class UserService{
+    login(loginUser){
+        return axios.post(`${apiBaseUrl}login/`, loginUser)
+    }
     getAllUsers(){
         return axios.get(`${apiBaseUrl}`)
     }
@@ -14,7 +17,7 @@ export default class UserService{
     createUser(user){
         if(user.id){
             return axios.put(`${apiBaseUrl}${user.id}/`, user)
-        } else return axios.post(`${apiBaseUrl}`, user)
+        } else return axios.post(`${apiBaseUrl}register`, user)
     }
 
     deleteUser(id){

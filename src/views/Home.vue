@@ -16,18 +16,18 @@
         v-for="(post, index) in posts"
         v-bind:item="post"
         :index="index"
-        :key="post.id">
+        :key="post._id">
             <div class="card">
                 <div class="card-content">
                     <p class="card-title">
-                        <router-link :to="{path: `${post.id}`}">{{ post.title }}</router-link></p>
+                        <router-link :to="{path: `${post._id}`}">{{ post.title }}</router-link></p>
                     <p class="timestamp">{{ post.created_at | formatDate }}</p>
-                    <p>{{ post.entry }}</p>
-                    <p>{{ post.image }}</p>
+                    <p>{{ post.body }}</p>
+                    <p>{{ post.img }}</p>
                 </div>
                 <div>
-                    <router-link :to="{path: `${post.id}/edit`}">Edit</router-link> 
-                    <a href='#' class="delete-btn" @click='deletePost(post.id)'>Delete</a>
+                    <router-link :to="{path: `${post._id}/edit`}">Edit</router-link> 
+                    <a href='#' class="delete-btn" @click='deletePost(post._id)'>Delete</a>
                 </div>
             </div>
         </div>
@@ -45,6 +45,7 @@ export default {
             posts: [],
             postLimit: 5,
             editingPost: null,
+            token: null
         }
     },
     methods: {
@@ -60,7 +61,7 @@ export default {
                 .deletePost(id)
                 .then(() => {
                     // filters post from FE view
-                    this.posts = this.posts.filter(p => p.id !== id);
+                    this.posts = this.posts.filter(p => p._id !== id);
                 })
                 .catch(err => console.error(err));
         },
@@ -71,6 +72,10 @@ export default {
         }
     },
     created(){
+        const checkToken = JSON.parse(window.localStorage.getItem('auth-token'))
+        if (checkToken) {
+            this.token = checkToken
+        }
         postService.getAllPosts()
         .then(res => {
             this.posts = res.data.objects;
@@ -90,7 +95,7 @@ export default {
     watch: {
             editingPost(post){
                 this.title = post.title;
-                this.entry = post.entry;
+                this.body = post.body;
             }
         }
 }

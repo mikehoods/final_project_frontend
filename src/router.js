@@ -6,6 +6,7 @@ import NewEntry from './views/NewEntry.vue';
 import EditEntry from './views/EditEntry.vue';
 import ShowEntry from './views/ShowEntry.vue';
 import Login from './views/Login.vue';
+import Register from './views/Register.vue';
 
 Vue.use(Router);
 
@@ -19,6 +20,10 @@ export default new Router({
         {
             path: '/login',
             component: Login
+        },
+        {
+            path: '/register',
+            component: Register
         },
         {
             path: '/new_entry',

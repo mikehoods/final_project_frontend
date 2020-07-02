@@ -7,7 +7,7 @@
                 v-model="username"
                 :class="[errors.username ? 'invalid' : 'validate']"
             >
-            <span class="helper-text" data-error="Username must not be empty"></span>
+            <span class="helper-text" data-error="Invalid username."></span>
         </div>
         <div class="input-field">
             <label for="password">Password</label>
@@ -16,7 +16,7 @@
                 v-model="password"
                 :class="[errors.password ? 'invalid' : 'validate']"
             >
-            <span class="helper-text" data-error="Password must not be empty"></span>
+            <span class="helper-text" data-error="Invalid password."></span>
         </div>
         <button type="submit" class="waves-effect waves-light btn">
             Login
@@ -30,7 +30,6 @@
 <script>
 import UserService from '../UserService';
 const userService = new UserService();
-import Axios from 'axios';
 export default {
     name: "Login",
     data(){
@@ -55,26 +54,24 @@ export default {
                   password: this.password
               };
               const loginUser = {username: this.username, password: this.password}
-              Axios.post('http://localhost:8000/users/login/', loginUser)
-            .then(function (response){
-                // console.log(response)
-                this.userData = {
-                    token: response.data.token 
-                };
-                localStorage.setItem("auth-token", JSON.stringify(response.data.token));
-                })
-                .catch(function(error){
-                    console.log(error)
-                    // setError(true)
-                });
 
               userService
-                .getAllUsers()
+                .login(loginUser)
                 .then(res => {
                     this.loading = false;
                     this.users = res.data.objects;
+                    this.userData = {
+                    token: res.data.token 
+                    };
+                    localStorage.setItem("auth-token", JSON.stringify(res.data.token));
                 })
-                .catch(err => console.error(err))
+                .catch(err => {
+                    this.loading = false;
+                    if (this.username !== this.users.username) {
+                        this.errors.username = 'Login Failed'
+                    }
+                    console.error(err)
+                })
             console.log(user)
         },
         validForm(){
