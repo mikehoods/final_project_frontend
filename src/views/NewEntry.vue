@@ -46,9 +46,16 @@ export default {
             loading: false,
             title: "",
             body: "",
-            username: "",
+            username: "mike",
             errors: {},
+            token: null
         };
+    },
+    created(){
+        const checkToken = JSON.parse(window.localStorage.getItem('auth-token'))
+        if (checkToken) {
+            this.token = checkToken
+        }
     },
     methods: {
         onSubmit(){
@@ -59,16 +66,19 @@ export default {
             }
               const post = {
                   title: this.title,
-                  body: this.body
+                  body: this.body,
+                  username: this.username
+
               };
 
               postService
-                .writePost(post)
+                .writePost(post, this.token)
                 .then(res => {
                     this.loading = false;
                     this.body = "";
                     this.title = "";
                     this.$emit('postCreated', res.data);
+                    this.$router.push('/')
                 })
                 .catch(err => console.error(err));
         },

@@ -3,21 +3,41 @@ import axios from 'axios';
 const apiBaseUrl = 'http://localhost:3000/entries';
 
 export default class PostService{
-    getAllPosts(){
-        return axios.get(`${apiBaseUrl}/`)
+    getAllPosts(token){
+        return axios.get(`${apiBaseUrl}/`, {
+            headers: {
+                Authorization: `bearer ${token}`
+            }
+        })
     }
 
-    getPosts(number){
-        return axios.get(`${apiBaseUrl}/${number}`)
+    getPosts(number, token){
+        return axios.get(`${apiBaseUrl}/${number}`, {
+            headers: {
+                Authorization: `bearer ${token}`
+            }
+        })
     }
 
-    writePost(post){
+    writePost(post, token){
         if(post._id){
-            return axios.put(`${apiBaseUrl}/${post._id}/`, post)
-        } else return axios.post(`${apiBaseUrl}/`, post)
+            return axios.put(`${apiBaseUrl}/${post._id}/`, {
+                headers: {
+                    Authorization: `bearer ${token}`
+                },
+                post})
+        } else return axios.post(`${apiBaseUrl}/`, {
+            headers: {
+                Authorization: `bearer ${token}`
+            },
+            post})
     }
 
-    deletePost(id){
-        return axios.delete(`${apiBaseUrl}/${id}`)
+    deletePost(id, token){
+        return axios.delete(`${apiBaseUrl}/${id}`, {
+            headers: {
+                Authorization: `bearer ${token}`
+            }
+        })
     }
 }

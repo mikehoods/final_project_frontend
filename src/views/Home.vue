@@ -21,7 +21,7 @@
                 <div class="card-content">
                     <p class="card-title">
                         <router-link :to="{path: `${post._id}`}">{{ post.title }}</router-link></p>
-                    <p class="timestamp">{{ post.created_at | formatDate }}</p>
+                    <p class="timestamp">{{ post.createdAt | formatDate }}</p>
                     <p>{{ post.body }}</p>
                     <p>{{ post.img }}</p>
                 </div>
@@ -45,7 +45,8 @@ export default {
             posts: [],
             postLimit: 5,
             editingPost: null,
-            token: null
+            token: null,
+            entries: []
         }
     },
     methods: {
@@ -57,7 +58,6 @@ export default {
         },
         deletePost(id) {
             postService
-                //deletes post from array
                 .deletePost(id)
                 .then(() => {
                     // filters post from FE view
@@ -69,6 +69,9 @@ export default {
             postService.getPosts(this.postLimit)
                 .then(res => this.posts = res.data)
                 .catch(err => console.error(err));
+        },
+        logout() {
+            localStorage.removeItem('auth-token')
         }
     },
     created(){
@@ -76,9 +79,10 @@ export default {
         if (checkToken) {
             this.token = checkToken
         }
-        postService.getAllPosts()
+        postService.getAllPosts(this.token)
         .then(res => {
             this.posts = res.data.objects;
+            
         })
         .catch(err => console.error(err))
     },

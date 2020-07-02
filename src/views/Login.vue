@@ -64,6 +64,7 @@ export default {
                     token: res.data.token 
                     };
                     localStorage.setItem("auth-token", JSON.stringify(res.data.token));
+                    this.$router.push('/')
                 })
                 .catch(err => {
                     this.loading = false;
