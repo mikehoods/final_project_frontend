@@ -3,13 +3,13 @@
         <div class="card" v-bind:item="posts">
             <div class="card-content">
                 <p class="card-title">{{ this.posts.title }}</p>
-                <p class="timestamp">{{ this.posts.created_at | formatDate }}</p>
-                <p>{{ this.posts.entry }}</p>
+                <p class="timestamp">{{ this.posts.createdAt | formatDate }}</p>
+                <p>{{ this.posts.body }}</p>
                 <p>{{ this.posts.image }}</p>
             </div>
             <div>
-                <router-link :to="{path: `${this.posts.id}/edit`}">Edit</router-link> 
-                <a href='/' class="delete-btn" @click='deletePost(posts.id)'>Delete</a>
+                <router-link :to="{path: `${this.posts._id}/edit`}">Edit</router-link> 
+                <a href='/' class="delete-btn" @click='deletePost(posts._id)'>Delete</a>
             </div>
         </div>
     </div>

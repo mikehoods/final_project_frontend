@@ -10,13 +10,13 @@
             <span class="helper-text" data-error="Title must not be empty"></span>
         </div>
         <div class="input-field">
-            <label for="entry">Entry</label>
+            <label for="body">Body</label>
             <input type="text"
-                name="entry"
-                v-model="entry"
-                :class="[errors.entry ? 'invalid' : 'validate']"
+                name="body"
+                v-model="body"
+                :class="[errors.body ? 'invalid' : 'validate']"
             >
-            <span class="helper-text" data-error="Entry must not be empty"></span>
+            <span class="helper-text" data-error="Body must not be empty"></span>
         </div>
         <button type="submit" class="waves-effect waves-light btn">
             Edit
@@ -36,19 +36,19 @@ export default {
         return {
             loading: false,
             title: "",
-            entry: "",
+            body: "",
             id: "",
             errors: {},
             posts: []
         };
     },
     beforeCreate(){
-        postService.getPosts(parseInt(this.$route.params.id))
+        postService.getPosts(this.$route.params.id)
         .then(response => {
             this.posts = response.data;
             this.title = this.posts.title;
-            this.entry = this.posts.entry;
-            this.id = this.posts.id;
+            this.body = this.posts.body;
+            this.id = this.posts._id;
         })
     },
     methods: {
@@ -60,16 +60,17 @@ export default {
             }
               const post = {
                   title: this.title,
-                  entry: this.entry,
-                  id: this.id
+                  body: this.body,
+                  _id: this.id
               };
 
               postService
                 .writePost(post)
                 .then(res => {
                     this.loading = false;
-                    this.entry = "";
+                    this.body = "";
                     this.title = "";
+                    this.id = "";
                     this.$emit('postCreated', res.data);
                 })
                 .catch(err => console.error(err));
@@ -79,8 +80,8 @@ export default {
             if(this.title.trim() === ""){
                 this.errors.title = 'Title Required'
             }
-            if(this.entry.trim() === ""){
-                this.errors.entry = 'Entry Required'
+            if(this.body.trim() === ""){
+                this.errors.body = 'Body Required'
             }
             if(Object.keys(this.errors).length > 0){
                 return false;

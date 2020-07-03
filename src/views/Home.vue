@@ -79,7 +79,6 @@ export default {
     beforeCreate(){
         postService.getAllPosts()
         .then(res => {
-            console.log(res.data)
             this.posts = res.data;
         })
         .catch(err => console.error(err))

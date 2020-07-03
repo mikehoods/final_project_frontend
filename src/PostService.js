@@ -7,8 +7,8 @@ export default class PostService{
         return axios.get(`${apiBaseUrl}/`)
     }
 
-    getPosts(number, accessToken){
-        return axios.get(`${apiBaseUrl}/${number}`, {
+    getPosts(id, accessToken){
+        return axios.get(`${apiBaseUrl}/${id}`, {
             headers: {
               Authorization: `Bearer ${accessToken}`
             }
