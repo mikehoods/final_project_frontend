@@ -25,8 +25,9 @@ export default {
             posts: []
         }
     },
-    beforeCreate(){
-            postService.getPosts(this.$route.params.id)
+    async beforeCreate(){
+            const accessToken = await this.$auth.getTokenSilently()
+            postService.getPosts(this.$route.params.id, accessToken)
             .then(response => this.posts = response.data)
     },
     methods: {

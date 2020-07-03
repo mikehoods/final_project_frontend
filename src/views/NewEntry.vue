@@ -51,7 +51,7 @@ export default {
         };
     },
     methods: {
-        onSubmit(){
+        async onSubmit(){
             this.loading = true;
             if(!this.validForm()){
                 this.loading = false;
@@ -59,16 +59,16 @@ export default {
             }
               const post = {
                   title: this.title,
-                  body: this.body
+                  body: this.body,
               };
-
+              const accessToken = await this.$auth.getTokenSilently()
               postService
-                .writePost(post)
+                .writePost(post, accessToken)
                 .then(res => {
                     this.loading = false;
                     this.body = "";
                     this.title = "";
-                    this.$emit('postCreated', res.data);
+                    this.$emit('createdEntry', res.data);
                 })
                 .catch(err => console.error(err));
         },

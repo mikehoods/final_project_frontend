@@ -1,6 +1,11 @@
 <template>
     <div>
     <h3>Welcome to your journal</h3>
+    <h4>{{ $auth.user.nickname }}</h4>
+    <div class="button-block">
+        <button v-if="!$auth.isAuthenticated" @click="login" class="button is-xl is-dark">Sign Up to Browse Events</button>
+        <h3 v-if="$auth.isAuthenticated" class="is-size-3 has-background-dark welcome">Welcome, {{ $auth.user.name }}!</h3>
+    </div>
     <div class="row">
         <!-- <div class="col s3">
             <p>Limit number of posts</p>
@@ -45,7 +50,6 @@ export default {
             posts: [],
             postLimit: 5,
             editingPost: null,
-            token: null
         }
     },
     methods: {
@@ -55,10 +59,11 @@ export default {
         editPost(post) {
             this.editingPost = post;
         },
-        deletePost(id) {
+        async deletePost(id) {
+            const accessToken = await this.$auth.getTokenSilently()
             postService
                 //deletes post from array
-                .deletePost(id)
+                .deletePost(id, accessToken)
                 .then(() => {
                     // filters post from FE view
                     this.posts = this.posts.filter(p => p._id !== id);
@@ -71,17 +76,14 @@ export default {
                 .catch(err => console.error(err));
         }
     },
-    created(){
-        const checkToken = JSON.parse(window.localStorage.getItem('auth-token'))
-        if (checkToken) {
-            this.token = checkToken
-        }
-        postService.getAllPosts()
-        .then(res => {
-            this.posts = res.data.objects;
-        })
-        .catch(err => console.error(err))
-    },
+    // created(){
+        
+    //     postService.getAllPosts()
+    //     .then(res => {
+    //         this.posts = res.data.objects;
+    //     })
+    //     .catch(err => console.error(err))
+    // },
     filters: {
         formatDate(date){
             date = new Date(date);
@@ -102,6 +104,10 @@ export default {
 </script>
 
 <style>
+.button-block {
+    display: flex;
+    justify-content: flex-end;
+}
 .card {
     border-radius: 12px;
     padding: .4rem;
