@@ -60,6 +60,7 @@ export default {
               const post = {
                   title: this.title,
                   body: this.body,
+                  username: this.$auth.user.nickname
               };
               const accessToken = await this.$auth.getTokenSilently()
               postService

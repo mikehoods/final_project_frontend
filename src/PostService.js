@@ -4,7 +4,7 @@ const apiBaseUrl = 'http://localhost:3000/entries';
 
 export default class PostService{
     getAllPosts(){
-        return axios.get(`${apiBaseUrl}`)
+        return axios.get(`${apiBaseUrl}/`)
     }
 
     getPosts(number, accessToken){

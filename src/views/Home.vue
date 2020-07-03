@@ -2,19 +2,19 @@
     <div>
     <h3>Welcome to your journal</h3>
     <h4>{{ $auth.user.nickname }}</h4>
-    <div class="button-block">
+    <!-- <div class="button-block">
         <button v-if="!$auth.isAuthenticated" @click="login" class="button is-xl is-dark">Sign Up to Browse Events</button>
         <h3 v-if="$auth.isAuthenticated" class="is-size-3 has-background-dark welcome">Welcome, {{ $auth.user.name }}!</h3>
-    </div>
-    <div class="row">
-        <!-- <div class="col s3">
+    </div> -->
+    <!-- <div class="row">
+        <div class="col s3">
             <p>Limit number of posts</p>
             <input type="number" v-model="postLimit">
             <button @click="setLimit()" class="waves-effect waves-light btn">
                 Set
             </button>
-        </div> -->
-    </div>
+        </div>
+    </div> -->
     <div class="row">
         <div 
         class="col s6" 
@@ -26,7 +26,7 @@
                 <div class="card-content">
                     <p class="card-title">
                         <router-link :to="{path: `${post._id}`}">{{ post.title }}</router-link></p>
-                    <p class="timestamp">{{ post.created_at | formatDate }}</p>
+                    <p class="timestamp">{{ post.createdAt | formatDate }}</p>
                     <p>{{ post.body }}</p>
                     <p>{{ post.img }}</p>
                 </div>
@@ -49,7 +49,7 @@ export default {
         return {
             posts: [],
             postLimit: 5,
-            editingPost: null,
+            editingPost: null
         }
     },
     methods: {
@@ -76,14 +76,14 @@ export default {
                 .catch(err => console.error(err));
         }
     },
-    // created(){
-        
-    //     postService.getAllPosts()
-    //     .then(res => {
-    //         this.posts = res.data.objects;
-    //     })
-    //     .catch(err => console.error(err))
-    // },
+    beforeCreate(){
+        postService.getAllPosts()
+        .then(res => {
+            console.log(res.data)
+            this.posts = res.data;
+        })
+        .catch(err => console.error(err))
+    },
     filters: {
         formatDate(date){
             date = new Date(date);
