@@ -18,15 +18,6 @@
             >
             <span class="helper-text" data-error="Body must not be empty"></span>
         </div>
-        <div class="file-field input-field">
-      <div class="btn">
-        <span>File</span>
-        <input type="file">
-      </div>
-      <div class="file-path-wrapper">
-        <input class="file-path validate" type="text">
-      </div>
-    </div>
         <button type="submit" class="waves-effect waves-light btn">
             Add
         </button>
@@ -58,7 +49,7 @@ export default {
         }
     },
     methods: {
-        onSubmit(){
+        async onSubmit(){
             this.loading = true;
             if(!this.validForm()){
                 this.loading = false;
@@ -67,18 +58,16 @@ export default {
               const post = {
                   title: this.title,
                   body: this.body,
-                  username: this.username
-
+                  username: this.$auth.user.nickname
               };
-
+              const accessToken = await this.$auth.getTokenSilently()
               postService
-                .writePost(post, this.token)
+                .writePost(post, accessToken)
                 .then(res => {
                     this.loading = false;
                     this.body = "";
                     this.title = "";
-                    this.$emit('postCreated', res.data);
-                    this.$router.push('/')
+                    this.$emit('createdEntry', res.data);
                 })
                 .catch(err => console.error(err));
         },

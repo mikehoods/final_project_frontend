@@ -10,34 +10,35 @@ export default class PostService{
             }
         })
     }
-
-    getPosts(number, token){
-        return axios.get(`${apiBaseUrl}/${number}`, {
+    getPosts(id, accessToken){
+        return axios.get(`${apiBaseUrl}/${id}`, {
             headers: {
-                Authorization: `bearer ${token}`
+              Authorization: `Bearer ${accessToken}`
             }
-        })
+          });
     }
 
-    writePost(post, token){
+    writePost(post, accessToken){
         if(post._id){
             return axios.put(`${apiBaseUrl}/${post._id}/`, {
-                headers: {
-                    Authorization: `bearer ${token}`
-                },
-                post})
+              post: post,
+              headers: {
+                Authorization: `Bearer ${accessToken}`
+              }
+            });
         } else return axios.post(`${apiBaseUrl}/`, {
+            post: post,
             headers: {
-                Authorization: `bearer ${token}`
-            },
-            post})
+              Authorization: `Bearer ${accessToken}`
+            }
+          });
     }
 
-    deletePost(id, token){
+    deletePost(id, accessToken){
         return axios.delete(`${apiBaseUrl}/${id}`, {
             headers: {
-                Authorization: `bearer ${token}`
+              Authorization: `Bearer ${accessToken}`
             }
-        })
+          });
     }
 }
