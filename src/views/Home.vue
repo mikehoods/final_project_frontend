@@ -74,6 +74,9 @@ export default {
             postService.getPosts(this.postLimit)
                 .then(res => this.posts = res.data)
                 .catch(err => console.error(err));
+        },
+        logout() {
+            localStorage.removeItem('auth-token')
         }
     },
     beforeCreate(){

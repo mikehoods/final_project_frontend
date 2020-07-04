@@ -37,9 +37,16 @@ export default {
             loading: false,
             title: "",
             body: "",
-            username: "",
+            username: "mike",
             errors: {},
+            token: null
         };
+    },
+    created(){
+        const checkToken = JSON.parse(window.localStorage.getItem('auth-token'))
+        if (checkToken) {
+            this.token = checkToken
+        }
     },
     methods: {
         async onSubmit(){
