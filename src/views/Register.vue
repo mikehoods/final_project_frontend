@@ -64,7 +64,7 @@ export default {
                     this.password = "";
                     this.username = "";
                     this.$emit('userCreated', res.data);
-                    history.go('/login')
+                    this.$router.push('/login')
                 })
                 .catch(err => console.error(err));
         },

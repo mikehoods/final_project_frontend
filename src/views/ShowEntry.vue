@@ -22,7 +22,8 @@ export default {
     name: 'ShowEntry',
     data(){
         return {
-            posts: []
+            posts: [],
+            token: null
         }
     },
     async beforeCreate(){
