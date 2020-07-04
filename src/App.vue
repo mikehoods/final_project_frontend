@@ -1,6 +1,7 @@
 <template>
   <div>
-    <Navbar/>
+    <!-- <Navbar/> -->
+    <Nav/>
     <div class="container">
       <router-view/>
     </div>
@@ -8,7 +9,8 @@
 </template>
 
 <script>
-import Navbar from './components/Navbar';
+// import Navbar from './components/Navbar';
+import Nav from './components/partials/Nav.vue'
 
 import '../node_modules/materialize-css/dist/css/materialize.min.css';
 import '../node_modules/materialize-css/dist/js/materialize.min.js';
@@ -16,7 +18,7 @@ import '../node_modules/materialize-css/dist/js/materialize.min.js';
 export default {
   name: "App",
   components: {
-    Navbar
+    Nav
   }
 };
 </script>
