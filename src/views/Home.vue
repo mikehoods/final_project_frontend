@@ -16,12 +16,13 @@
         </div>
     </div> -->
     <div class="row">
-        <div 
+        <div
         class="col s8 offset-s2" 
         v-for="(post, index) in posts"
         v-bind:item="post"
         :index="index"
-        :key="post._id">
+        :key="post._id"
+        >
             <div class="card hoverable">
                 <div class="card-content">
                     <p class="card-title">
@@ -45,11 +46,12 @@ import PostService from '../PostService';
 const postService = new PostService();
 export default {
     name: "Home",
-    data(){
+    data() {
         return {
             posts: [],
             postLimit: 5,
             editingPost: null,
+            user: this.$auth.user.nickname
         }
     },
     methods: {
@@ -60,7 +62,7 @@ export default {
             this.editingPost = post;
         },
         async deletePost(id) {
-            const accessToken = await this.$auth.getTokenSilently()
+            const accessToken = await this.$auth.getTokenSilently();
             postService
                 //deletes post from array
                 .deletePost(id, accessToken)
@@ -70,22 +72,24 @@ export default {
                 })
                 .catch(err => console.error(err));
         },
-        setLimit(){
+        setLimit() {
             postService.getPosts(this.postLimit)
                 .then(res => this.posts = res.data)
                 .catch(err => console.error(err));
-        },
-        logout() {
-            localStorage.removeItem('auth-token')
         }
     },
-    beforeCreate(){
-        // const username = await this.$auth.user.nickname
-        postService.getAllPosts()
+    // async beforeCreate() {
+    //     this.user = await this.$auth.user.nickname
+    // },
+    mounted() {
+        this.user = this.$auth.user.nickname
+        const user = this.user
+        console.log(this.user)
+        postService.getAllPosts(user)
         .then(res => {
-            this.posts = res.data;
+            console.log(this.user)
+            this.posts = res.data
             this.posts = this.posts.reverse()
-            // this.posts = this.posts.filter(this.posts.username != this.$auth.user.nickname)
         })
         .catch(err => console.error(err))
     },
