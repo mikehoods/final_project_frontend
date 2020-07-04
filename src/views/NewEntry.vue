@@ -18,15 +18,6 @@
             >
             <span class="helper-text" data-error="Body must not be empty"></span>
         </div>
-        <div class="file-field input-field">
-      <div class="btn">
-        <span>File</span>
-        <input type="file">
-      </div>
-      <div class="file-path-wrapper">
-        <input class="file-path validate" type="text">
-      </div>
-    </div>
         <button type="submit" class="waves-effect waves-light btn">
             Add
         </button>

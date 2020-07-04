@@ -1,15 +1,15 @@
 <template>
     <div>
-        <div class="card" v-bind:item="posts">
+        <div class="card hoverable" v-bind:item="posts">
             <div class="card-content">
                 <p class="card-title">{{ this.posts.title }}</p>
                 <p class="timestamp">{{ this.posts.createdAt | formatDate }}</p>
                 <p>{{ this.posts.body }}</p>
                 <p>{{ this.posts.image }}</p>
             </div>
-            <div>
-                <router-link :to="{path: `${this.posts._id}/edit`}">Edit</router-link> 
-                <a href='/' class="delete-btn" @click='deletePost(posts._id)'>Delete</a>
+            <div class="entry-buttons">
+                <router-link :to="{path: `${this.posts._id}/edit`}"><i class="material-icons">edit</i></router-link> 
+                <a href='/' class="delete-btn" @click='deletePost(posts._id)'><i class="material-icons">delete</i></a>
             </div>
         </div>
     </div>
