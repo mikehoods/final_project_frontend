@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiBaseUrl = 'http://localhost:3000/entries';
+const apiBaseUrl = 'https://ga-final-project-dear-diary.herokuapp.com/entries';
 
 export default class PostService{
     getAllPosts(token){
