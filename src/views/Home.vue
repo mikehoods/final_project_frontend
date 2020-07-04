@@ -81,6 +81,8 @@ export default {
         postService.getAllPosts()
         .then(res => {
             this.posts = res.data;
+            this.posts = this.posts.reverse()
+            // this.posts = this.posts.filter(this.posts.username != this.$auth.user.nickname)
         })
         .catch(err => console.error(err))
     },

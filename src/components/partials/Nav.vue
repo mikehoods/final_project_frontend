@@ -1,5 +1,5 @@
 <template>
-<nav class="navbar container z-depth-5" role="navigation" aria-label="main navigation">
+<nav class="navbar container z-depth-3" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item nav-title" href="/">Dear Diary<span class="nav-subtitle">A journal app</span></a>
     <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
