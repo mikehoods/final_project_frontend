@@ -3,11 +3,9 @@ import axios from 'axios';
 const apiBaseUrl = 'https://ga-final-project-dear-diary.herokuapp.com/entries';
 
 export default class PostService{
-    getAllPosts(token){
+    getAllPosts(user){
         return axios.get(`${apiBaseUrl}/`, {
-            headers: {
-                Authorization: `bearer ${token}`
-            }
+            user: user
         })
     }
     getPosts(id, accessToken){
