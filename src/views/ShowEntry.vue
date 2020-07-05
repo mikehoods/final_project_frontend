@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="card hoverable" v-bind:item="posts">
+        <div class="card hoverable col s12 m8 offset-m2" v-bind:item="posts">
             <div class="card-content">
                 <p class="card-title">{{ this.posts.title }}</p>
                 <p class="timestamp">{{ this.posts.createdAt | formatDate }}</p>
