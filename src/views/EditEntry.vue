@@ -11,11 +11,7 @@
         </div>
         <div class="input-field">
             <label for="body" class="active">Body</label>
-            <input type="text"
-                name="body"
-                v-model="body"
-                :class="[errors.body ? 'invalid' : 'validate']"
-            >
+            <vue-editor v-model="body" :editorToolbar="customToolbar"></vue-editor>
             <span class="helper-text" data-error="Body must not be empty"></span>
         </div>
         <button type="submit" class="waves-effect waves-light btn">
@@ -30,8 +26,12 @@
 <script>
 import PostService from '../PostService';
 const postService = new PostService();
+import { VueEditor } from "vue2-editor";
 export default {
     name: "EditEntry",
+    components: {
+        VueEditor
+    },
     data() {
         return {
             loading: false,
@@ -39,7 +39,23 @@ export default {
             body: "",
             id: "",
             errors: {},
-            posts: []
+            posts: [],
+            customToolbar: [
+        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+        ['blockquote', 'code-block'],
+        [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+        [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+        [{ 'direction': 'rtl' }],                         // text direction
+        [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+        [{ 'font': [] }],
+        [{ 'align': [] }],
+        ['clean']
+        //['link', 'image','video']                                  
+  ],
         };
     },
     beforeCreate(){
@@ -72,6 +88,7 @@ export default {
                     this.title = "";
                     this.id = "";
                     this.$emit('postCreated', res.data);
+                    this.$router.push('/');
                 })
                 .catch(err => console.error(err));
         },
@@ -97,5 +114,8 @@ export default {
 }
 .progress {
     margin: 5rem auto;
+}
+textarea {
+    height: 40vh;
 }
 </style>
