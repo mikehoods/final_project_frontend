@@ -2,19 +2,6 @@
     <div>
     <h3 v-if="!$auth.user.nickname">Please sign in to access your journal.</h3>
     <h3 v-if="$auth.user.nickname">Welcome to your journal {{ $auth.user.nickname }}</h3>
-    <!-- <div class="button-block">
-        <button v-if="!$auth.isAuthenticated" @click="login" class="button is-xl is-dark">Sign Up to Browse Events</button>
-        <h3 v-if="$auth.isAuthenticated" class="is-size-3 has-background-dark welcome">Welcome, {{ $auth.user.name }}!</h3>
-    </div> -->
-    <!-- <div class="row">
-        <div class="col s3">
-            <p>Limit number of posts</p>
-            <input type="number" v-model="postLimit">
-            <button @click="setLimit()" class="waves-effect waves-light btn">
-                Set
-            </button>
-        </div>
-    </div> -->
     <div class="row">
         <div
         class="col s8 offset-s2" 
@@ -28,7 +15,7 @@
                     <p class="card-title">
                         <router-link :to="{path: `${post._id}`}">{{ post.title }}</router-link></p>
                     <p class="timestamp">{{ post.createdAt | formatDate }}</p>
-                    <p>{{ post.body }}</p>
+                    <p v-html="post.body"></p>
                     <p>{{ post.img }}</p>
                 </div>
                 <div class="entry-buttons">
@@ -124,10 +111,10 @@ h3 {
 .card {
     border-radius: 12px;
     padding: .4rem;
-    font-family: 'EB Garamond', serif;
 }
 .card .card-content .card-title{
     margin-bottom: 0;
+    font-family: 'EB Garamond', serif;
 }
 .card .card-content .card-title a {
     color: black;

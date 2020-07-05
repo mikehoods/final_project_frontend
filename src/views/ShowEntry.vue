@@ -4,8 +4,7 @@
             <div class="card-content">
                 <p class="card-title">{{ this.posts.title }}</p>
                 <p class="timestamp">{{ this.posts.createdAt | formatDate }}</p>
-                <p>{{ this.posts.body }}</p>
-                <p>{{ this.posts.image }}</p>
+                <p v-html="this.posts.body"></p>
             </div>
             <div class="entry-buttons">
                 <router-link :to="{path: `${this.posts._id}/edit`}"><i class="material-icons">edit</i></router-link> 
