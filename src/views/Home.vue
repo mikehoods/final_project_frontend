@@ -4,7 +4,7 @@
     <h3 v-if="$auth.user.nickname">Welcome to your journal {{ $auth.user.nickname }}</h3>
     <div class="row">
         <div
-        class="col s8 offset-s2" 
+        class="col s12 m8 offset-m2" 
         v-for="(post, index) in posts"
         v-bind:item="post"
         :index="index"
@@ -36,7 +36,6 @@ export default {
     data() {
         return {
             posts: [],
-            postLimit: 5,
             editingPost: null,
             user: this.$auth.user.nickname
         }
@@ -58,25 +57,17 @@ export default {
                     this.posts = this.posts.filter(p => p._id !== id);
                 })
                 .catch(err => console.error(err));
-        },
-        setLimit() {
-            postService.getPosts(this.postLimit)
-                .then(res => this.posts = res.data)
-                .catch(err => console.error(err));
         }
     },
-    // async beforeCreate() {
-    //     this.user = await this.$auth.user.nickname
-    // },
-    mounted() {
+    created() {
         this.user = this.$auth.user.nickname
         const user = this.user
         console.log(this.user)
         postService.getAllPosts(user)
         .then(res => {
             console.log(this.user)
-            this.posts = res.data
-            this.posts = this.posts.reverse()
+            this.posts = res.data;
+            this.posts = this.posts.reverse();
         })
         .catch(err => console.error(err))
     },
@@ -122,6 +113,7 @@ h3 {
 .card .card-content p.timestamp{
     color: #999;
     margin-bottom: 1rem;
+    font-family: 'EB Garamond', serif;
 }
 .entry-buttons {
     display: flex;
