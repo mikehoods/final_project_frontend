@@ -103,7 +103,7 @@ export default {
 </script>
 
 <style>
-.home-heading h3 {
+.home-heading {
     font-family: 'Federo', sans-serif;
     text-align: center;
 }
