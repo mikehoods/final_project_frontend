@@ -1,7 +1,7 @@
 <template>
-    <div class="home-body">
-    <h3 v-if="!$auth.user.nickname">Please sign in to access your journal.</h3>
-    <h3 v-if="$auth.user.nickname">Welcome to your journal {{ $auth.user.nickname }}</h3>
+    <div>
+    <h3 class="home-heading" v-if="!$auth.user.nickname">Please sign in to access your journal.</h3>
+    <h3 class="home-heading" v-if="$auth.user.nickname">Welcome to your journal {{ $auth.user.nickname }}</h3>
     <!-- <button @click="showPosts()">Show Posts</button> -->
     <div class="row">
         <div
@@ -103,7 +103,7 @@ export default {
 </script>
 
 <style>
-.home-body h3 {
+.home-heading h3 {
     font-family: 'Federo', sans-serif;
     text-align: center;
 }
