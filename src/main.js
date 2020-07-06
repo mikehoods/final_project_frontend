@@ -25,6 +25,11 @@ Vue.use(Auth0Plugin, {
 
 Vue.config.productionTip = false;
 
+//Filters
+Vue.filter('snippet', function(value){
+  return value.slice(0,200) + "...";
+})
+
 new Vue({
   router,
   store,
