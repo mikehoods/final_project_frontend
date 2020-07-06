@@ -2,11 +2,10 @@
     <div>
     <h3 class="home-heading" v-if="!$auth.user.nickname">Please sign in to access your journal.</h3>
     <h3 class="home-heading" v-if="$auth.user.nickname">Welcome to your journal {{ $auth.user.nickname }}</h3>
-    <!-- <button @click="showPosts()">Show Posts</button> -->
     <div class="row">
         <div
         class="col s12 m8 offset-m2" 
-        v-for="(post, index) in posts"
+        v-for="(post, index) in filteredEntries"
         v-bind:item="post"
         :index="index"
         :key="post._id"
@@ -42,24 +41,6 @@ export default {
         }
     },
     methods: {
-        // showPosts() {
-        // // this.user = this.$auth.user.nickname
-        // const user = this.user
-        // console.log(user)
-        // postService.getAllPosts(user)
-        // .then(res => {
-        //     console.log(user)
-        //     this.posts = res.data;
-        //     this.posts = this.posts.reverse();
-        // })
-        // .catch(err => console.error(err))
-        // },
-        addPost(post) {
-            this.posts.unshift(post);
-        },
-        editPost(post) {
-            this.editingPost = post;
-        },
         async deletePost(id) {
             const accessToken = await this.$auth.getTokenSilently();
             postService
@@ -72,14 +53,20 @@ export default {
                 .catch(err => console.error(err));
         }
     },
-    created() {
+    computed: {
+        filteredEntries: function() {
+            return this.posts.filter((post) => {
+                return post.username.match(this.$auth.user.nickname)
+            })
+        }
+    },
+    beforeCreate() {
         this.user = this.$auth.user.nickname
-        console.log(this.user)
         postService.getAllPosts(this.user)
         .then(res => {
-            console.log(this.user)
             this.posts = res.data;
             this.posts = this.posts.reverse();
+            this.posts = this.filteredEntries
         })
         .catch(err => console.error(err))
     },
@@ -89,16 +76,9 @@ export default {
             const day = date.getDate();
             const month = date.getMonth() + 1;
             const year = date.getFullYear();
-
             return `${month}/${day}/${year}`
         }
-    },
-    watch: {
-            editingPost(post){
-                this.title = post.title;
-                this.body = post.body;
-            }
-        }
+    }
 }
 </script>
 
