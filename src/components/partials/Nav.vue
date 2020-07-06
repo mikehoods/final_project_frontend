@@ -46,7 +46,7 @@ export default {
   nav {
     margin-top: 4vh;
     margin-bottom: 5vh;
-    padding: .8rem;
+    padding: .6rem;
     display: flex;
     background-color: teal;
     border-radius: 6px;
@@ -67,11 +67,11 @@ export default {
     .nav-title {
       color: whitesmoke;
       text-shadow: 1.5px 1.5px black;
-      font-size: 2.5rem;
+      font-size: 2.4rem;
       font-weight: 100;
       .nav-subtitle {
-        font-size: 1.5rem;
-        padding: 0 0 0 6vw;
+        font-size: 1.4rem;
+        padding: 0 0 0 4vw;
       }
     }
     .navbar-start {
@@ -79,8 +79,8 @@ export default {
       justify-content: flex-end;
       align-items: center;
       a {
-        padding: 0 2vw;
-        font-size: 1.2rem;
+        padding: 0 1.5vw;
+        font-size: 1.1rem;
         display: flex;
         align-items: center;
       }
@@ -90,4 +90,24 @@ export default {
       display: flex;
     }
   }
+  @media only screen and (max-width: 750px) {
+  nav {
+    .nav-title {
+      font-size: 1.2rem;
+      .nav-subtitle {
+        font-size: .8rem;
+        padding: 0 0 0 2vw;
+      }
+    }
+    .navbar-start {
+      a {
+        font-size: .8rem;
+        padding: 0;;
+      }
+    }
+  }
+  i {
+    visibility: hidden;
+  }
+}
 </style>

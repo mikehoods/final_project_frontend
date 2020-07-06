@@ -1,7 +1,8 @@
 <template>
-    <div>
+    <div class="home-body">
     <h3 v-if="!$auth.user.nickname">Please sign in to access your journal.</h3>
     <h3 v-if="$auth.user.nickname">Welcome to your journal {{ $auth.user.nickname }}</h3>
+    <!-- <button @click="showPosts()">Show Posts</button> -->
     <div class="row">
         <div
         class="col s12 m8 offset-m2" 
@@ -15,7 +16,7 @@
                     <p class="card-title">
                         <router-link :to="{path: `${post._id}`}">{{ post.title }}</router-link></p>
                     <p class="timestamp">{{ post.createdAt | formatDate }}</p>
-                    <p v-html="post.body"></p>
+                    <p  v-html="post.body"></p>
                     <p>{{ post.img }}</p>
                 </div>
                 <div class="entry-buttons">
@@ -41,6 +42,18 @@ export default {
         }
     },
     methods: {
+        // showPosts() {
+        // // this.user = this.$auth.user.nickname
+        // const user = this.user
+        // console.log(user)
+        // postService.getAllPosts(user)
+        // .then(res => {
+        //     console.log(user)
+        //     this.posts = res.data;
+        //     this.posts = this.posts.reverse();
+        // })
+        // .catch(err => console.error(err))
+        // },
         addPost(post) {
             this.posts.unshift(post);
         },
@@ -61,9 +74,8 @@ export default {
     },
     created() {
         this.user = this.$auth.user.nickname
-        const user = this.user
         console.log(this.user)
-        postService.getAllPosts(user)
+        postService.getAllPosts(this.user)
         .then(res => {
             console.log(this.user)
             this.posts = res.data;
@@ -91,7 +103,7 @@ export default {
 </script>
 
 <style>
-h3 {
+.home-body h3 {
     font-family: 'Federo', sans-serif;
     text-align: center;
 }
