@@ -15,7 +15,10 @@ export default new Router({
         {
             path: '/',
             component: Home,
-            name: Home
+            name: Home,
+            meta: {
+                reload: true
+            }
         },
         {
             path: '/new_entry',
