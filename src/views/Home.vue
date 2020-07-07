@@ -38,9 +38,7 @@ export default {
     name: "Home",
     data() {
         return {
-            posts: [],
-            allPost: [],
-            user: this.$auth.user.nickname,
+            allPosts: [],
             search: ''
         }
     },
@@ -52,7 +50,7 @@ export default {
                 .deletePost(id, accessToken)
                 .then(() => {
                     // filters post from FE view
-                    this.posts = this.posts.filter(p => p._id !== id);
+                    this.allPosts = this.allPosts.filter(p => p._id !== id);
                 })
                 .catch(err => console.error(err));
         }
@@ -60,23 +58,19 @@ export default {
     computed: {
         filteredEntries: function() {
             return this.allPosts.filter((post) => {
-                return post.username.match(this.$auth.user.nickname)
+                return post.username === this.$auth.user.nickname
             })
         },
         searchFilter: function(){
-            return this.posts.filter((post) => {
+            return this.filteredEntries.filter((post) => {
                 return post.body.match(this.search)
             })
         }
     },
-    beforeCreate() {
-        this.user = this.$auth.user.nickname
-        postService.getAllPosts(this.user)
+    mounted() {
+        postService.getAllPosts()
         .then(res => {
-            this.allPosts = res.data;
-            this.allPosts = this.filteredEntries
-            this.posts = this.allPosts.reverse();
-            
+            this.allPosts = res.data.reverse();
         })
         .catch(err => console.error(err))
     },
