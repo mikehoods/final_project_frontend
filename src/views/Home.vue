@@ -2,10 +2,13 @@
     <div>
     <h3 class="home-heading" v-if="!$auth.user.nickname">Please sign in to access your journal.</h3>
     <h3 class="home-heading" v-if="$auth.user.nickname">Welcome to your journal {{ $auth.user.nickname }}</h3>
+    <div class="search">
+        <input type="text" v-if="$auth.user.nickname" v-model="search" placeholder="Search your entries (case sensitive)">
+    </div>
     <div class="row">
         <div
         class="col s12 m8 offset-m2" 
-        v-for="(post, index) in filteredEntries"
+        v-for="(post, index) in searchFilter"
         v-bind:item="post"
         :index="index"
         :key="post._id"
@@ -36,8 +39,9 @@ export default {
     data() {
         return {
             posts: [],
-            editingPost: null,
-            user: this.$auth.user.nickname
+            allPost: [],
+            user: this.$auth.user.nickname,
+            search: ''
         }
     },
     methods: {
@@ -55,8 +59,13 @@ export default {
     },
     computed: {
         filteredEntries: function() {
-            return this.posts.filter((post) => {
+            return this.allPosts.filter((post) => {
                 return post.username.match(this.$auth.user.nickname)
+            })
+        },
+        searchFilter: function(){
+            return this.posts.filter((post) => {
+                return post.body.match(this.search)
             })
         }
     },
@@ -64,9 +73,10 @@ export default {
         this.user = this.$auth.user.nickname
         postService.getAllPosts(this.user)
         .then(res => {
-            this.posts = res.data;
-            this.posts = this.posts.reverse();
-            this.posts = this.filteredEntries
+            this.allPosts = res.data;
+            this.allPosts = this.filteredEntries
+            this.posts = this.allPosts.reverse();
+            
         })
         .catch(err => console.error(err))
     },
@@ -82,36 +92,54 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+.search {
+    display: flex;
+    justify-content: center;
+    margin: 2rem;
+    input {
+        max-width: 45vw;
+    }
+}
 .home-heading {
     font-family: 'Federo', sans-serif;
     text-align: center;
 }
-.button-block {
-    display: flex;
-    justify-content: flex-end;
-}
 .card {
     border-radius: 12px;
     padding: .4rem;
+    ul {
+        li {
+            list-style: inside;
+        }
+    }
+    .card-content {
+        .card-title {
+            margin-bottom: 0;
+            font-family: 'EB Garamond', serif;
+            a {
+                color: black;
+            }
+        }
+        p.timestamp {
+            color: #999;
+            margin-bottom: 1rem;
+            font-family: 'EB Garamond', serif;
+        }
+    }
+    .entry-buttons {
+        display: flex;
+        justify-content: flex-end;
+        .delete-btn {
+            color: rgb(126, 36, 36);
+        }
+    }
 }
-.card .card-content .card-title{
-    margin-bottom: 0;
-    font-family: 'EB Garamond', serif;
-}
-.card .card-content .card-title a {
-    color: black;
-}
-.card .card-content p.timestamp{
-    color: #999;
-    margin-bottom: 1rem;
-    font-family: 'EB Garamond', serif;
-}
-.entry-buttons {
-    display: flex;
-    justify-content: flex-end;
-}
-.delete-btn {
-    color: rgb(126, 36, 36);
+@media only screen and (max-width: 750px) {
+    .search {
+        input {
+            max-width: 75vw;
+        }
+    }
 }
 </style>
