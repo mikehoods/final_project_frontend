@@ -1,49 +1,21 @@
 # Final GA Project: Journal App
 # Working Title Dear Diary
 
-## MVP
+## About
 
-* Full CRUD
-* Authorization/Authentication
-* Word Processor (Editor.js or Froala)
-* Host Images (VPS or AmazonS3)
-* Use New Framework (Vue)
+Dear Diary is a simple online journal app. This was my capstone project for completing General Assembly's Software Engineering Immersive program. It was a solo project in which the primary requirements were to design a full CRUD application and implement at least one new technology that you learned on your own. Though I would have liked to incorporate more features into the app, I only had 10 days to conceive and code this, create my portfolio, deploy both, and also work on one last mini-project for homework.
 
-## Bonus
+I chose to focus more on learning new technologies, and so I built the frontend in Vue 2, used Auth0 for social authentication through Google accounts, and added Vue2 Editor, a Quill powered WYSIWYG text editor for Vue. I also worked with Materialize, for the first time, to style the app. 
 
-* Filter entries by tag or subject
-* Use an API to import something like basic weather info for that day
-* Edit/Delete Users
+## Future Enhancements
 
-## Views Needed
-* Main Index (filter by entry tag)
-* New Entry
-* Edit Entry
-* Show Entry
-* Login
-* Create User
-* Edit/Delete User (bonus)
+Once I find the time, I would like to add in pagination and functionality to group and display journal entries by tags or categories. The current search feature searches the body of the entry and filters results for whatever string you enter, but I would also like to add in some means of displaying results by month, year, or day.
 
-## Models
+## Known Issues
 
-```
-class Entry(models.Model):
-    title = models.CharField(max_length=100)
-    entry = models.TextField()
-    image = models.CharField(max_length=400)
-    created_at = models.DateTimeField(auto_now_add=True)
+Materialize seems to override some of the Vue 2 Editor styling. Entries are displayed with the proper formatting while writing and editing them, but displaying them formats them to Materialize defaults. I fixed issues with bold and bullets not displaying properly, but fonts still need to be fixed.
 
-    def __str__(self):
-        return '%s %s %s' % (self.title, self.entry, self.image)
 
-    def save(self, *args, **kwargs):
-        return super(Entry, self).save(*args, **kwargs)
-```
-Still need to add 'tag' to Entry model
-
-User:
-    username:
-    password:
 
 ## Repo links
 
@@ -51,11 +23,3 @@ https://github.com/mikehoods/final_project_frontend
 
 
 https://github.com/mikehoods/final_project_backend
-
-## Desktop Figma
-
-![Desktop Figma](/public/images/Desktop_Figma.png)
-
-## Mobile Design
-
-So far, I just have a sloppy hand drawn sketch for this.
