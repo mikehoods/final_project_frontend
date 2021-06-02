@@ -56,17 +56,16 @@ export default {
     a {
       display: flex;
       font-weight: bold;
-      color: #2c3e50;
+      color: #CDD0CB;
       &.router-link-exact-active {
-        color: #d88d00;
+        color: #151515;
       }
     }
     a:hover, .navbar-item {
       cursor: pointer;
     }
     .nav-title {
-      color: whitesmoke;
-      text-shadow: 1.5px 1.5px black;
+      color: #E8EAE6;
       font-size: 2.4rem;
       font-weight: 100;
       .nav-subtitle {

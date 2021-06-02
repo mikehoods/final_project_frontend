@@ -125,7 +125,10 @@ export default {
         display: flex;
         justify-content: flex-end;
         .delete-btn {
-            color: rgb(126, 36, 36);
+            color: grey;
+        }
+        i {
+            color: grey;
         }
     }
 }

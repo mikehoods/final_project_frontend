@@ -104,7 +104,7 @@ export default {
 }
 </script>
 <style scoped>
-::ng-deep .ql-editor stong {
+::ng-deep .ql-editor strong {
     font-weight: bold;
 }
 .form {
