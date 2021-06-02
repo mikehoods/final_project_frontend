@@ -1,7 +1,6 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
-import store from "./store";
 
 // Import the Auth0 configuration
 import { domain, clientId, audience } from "../auth_config.json";
@@ -32,6 +31,5 @@ Vue.filter('snippet', function(value){
 
 new Vue({
   router,
-  store,
   render: h => h(App)
 }).$mount("#app");
